@@ -7,12 +7,26 @@
 }
 
 body {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: black;
     padding: 30px;
+    position: relative;
+    isolation: isolate;
 }
 
-a { /*SELECCIÓN ENLACES HTML*/
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(120deg, #1d4ed8, #7e22ce, #be123c);
+    background-size: 200% 200%;
+    animation: background-in-out 6s ease-in-out infinite alternate;
+}
+
+a {
+    /*SELECCIÓN ENLACES HTML*/
     color: inherit;
     text-decoration: none;
 }
@@ -60,7 +74,7 @@ a { /*SELECCIÓN ENLACES HTML*/
     margin: 0 auto;
 }
 
-/* PORTFOLIO ARRIBA */
+/* ABOUT ME CORONANDO HEADER */
 
 .about-me {
     grid-column: 1 / -1;
@@ -115,7 +129,8 @@ a { /*SELECCIÓN ENLACES HTML*/
     order: 2;
 }
 
-.work::before { /*PSEUDO ELEMENTO*/
+.work::before {
+    /*PSEUDO ELEMENTO*/
     content: "";
     order: 1;
     width: 18px;
@@ -131,6 +146,7 @@ a { /*SELECCIÓN ENLACES HTML*/
 
 .contact {
     grid-column: 1 / -1;
+    border-radius: 999px;
 }
 
 .contact a {
@@ -150,3 +166,76 @@ a { /*SELECCIÓN ENLACES HTML*/
     animation-play-state: paused;
 }
 
+/* ANIMACIONES */
+
+@keyframes flotar {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes rgb-border {
+    0% {
+        border-color: rgb(255, 0, 0);
+    }
+
+    33% {
+        border-color: rgb(0, 255, 0);
+    }
+
+    66% {
+        border-color: rgb(0, 0, 255);
+    }
+
+    100% {
+        border-color: rgb(255, 0, 0);
+    }
+}
+
+@keyframes pulse-green {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 200, 70, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(0, 200, 70, 0);
+    }
+}
+
+@keyframes background-in-out {
+    from {
+        opacity: 0.35;
+        background-position: 0% 50%;
+    }
+
+    to {
+        opacity: 1;
+        background-position: 100% 50%;
+    }
+}
+
+/* RESPONSIVE - ADAPTABLE A DISPOSITIVOS*/
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .about-me,
+    .projects,
+    .contact {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
